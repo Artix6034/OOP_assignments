@@ -13,5 +13,16 @@ public class Property {
         System.out.println("Name of the property: ");
         return name;
     }
-
+    public String printaddress() {
+        System.out.println("Address of the property: ");
+        return address;
+    }
+    public int printprice() {
+        System.out.println("Price of the property: ");
+        return price;
+    }
+    public double printarea() {
+        System.out.println("Area of the property: ");
+        return area
+    }
 }
