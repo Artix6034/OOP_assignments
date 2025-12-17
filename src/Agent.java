@@ -1,29 +1,26 @@
-public class Agency {
-    public String name;
-    public String phone;
+public class Agent {
+    private String name;
+    private String phone;
     private int experience;
 
     // constructor
-    public Agency (String name, String phone, int experience) {
+    public Agent (String name, String phone, int experience) {
         this.name = name;
         this.phone = phone;
         this.experience = experience;
     }
 
-    // printing values
-    public String printname() {
-        System.out.println("Agent name: ");
+    // getters
+    public String getname() {
         return name;
     }
-    public String printphone(){
-        System.out.println("Your agent's phone number: ");
+    public String getphone(){
         return phone;
     }
-    public int printexperience() {
-        System.out.println("Your agent's experience: ");
+    public int getexperience() {
         return experience;
     }
-    // Setting values
+    // setters
     public void setname(String name) {
         this.name = name;
     }
@@ -32,5 +29,9 @@ public class Agency {
     }
     public void setexperience(int experience) {
         this.experience = experience;
+    }
+    @Override
+    public String toString() {
+        return name + "'s phone: " + phone + ", he has " + experience + " years of experience";
     }
 }

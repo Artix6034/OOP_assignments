@@ -11,24 +11,21 @@ public class Property {
         this.price = price;
         this.area = area;
     }
-    // below are methods of printing info
-    public String printname() {
-        System.out.println("Name of the property: ");
-        return name;
+
+    // getters
+    public String getname() {
+        return this.name;
     }
-    public String printaddress() {
-        System.out.println("Address of the property: ");
-        return address;
+    public String getaddress() {
+        return this.address;
     }
-    public int printprice() {
-        System.out.println("Price of the property: ");
-        return price;
+    public int getprice() {
+        return this.price;
     }
-    public double printarea() {
-        System.out.println("Area of the property: ");
-        return area;
+    public double getarea() {
+        return this.area;
     }
-    // below are methods of setting new values for variables
+    // setters
     public void setname(String name) {
         this.name = name;
     }
@@ -41,4 +38,10 @@ public class Property {
     public void setarea(double area) {
         this.area = area;
     }
+    @Override
+    public String toString() {
+        return name + " is at "+ address + " costs "+ price + " and it's area "+ area;
+    }
 }
+
+
