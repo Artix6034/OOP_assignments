@@ -24,6 +24,25 @@ public class RealEstateAgency {
             System.out.println(p.toString());
         }
     }
+
+    public Property findByAddress(String address) {
+        for (Property p : properties) {
+            if (p.getaddress().equals(address)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public double filterByPrice(double maxPrice) {
+        for (Property p : properties) {
+            if(p.getprice() >= maxPrice) {
+                maxPrice = p.getprice();
+            }
+        }
+        return maxPrice;
+    }
+
     public void showAgents() {
         System.out.println("Agents in " + name + ":");
         for (Agent a : agents) {
