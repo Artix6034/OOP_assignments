@@ -42,6 +42,17 @@ public class Property {
     public String toString() {
         return name + " is at "+ address + " costs "+ price + " and it's area "+ area;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Property p = (Property) o;
+        return address.equals(p.address);
+    }
+    @Override
+    public int hashCode() {
+        return address.hashCode();
+    }
 }
 
 

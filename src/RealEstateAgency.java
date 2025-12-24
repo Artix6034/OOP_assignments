@@ -10,6 +10,7 @@ public class RealEstateAgency {
         properties = new ArrayList<>();
         agents = new ArrayList<>();
     }
+
     // methods
     public void addProperty(Property property) {
         properties.add(property);
