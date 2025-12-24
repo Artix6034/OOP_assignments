@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class RealEstateAgency {
     private String name;
@@ -25,6 +26,8 @@ public class RealEstateAgency {
         }
     }
 
+    public ArrayList<Agent> getAgents() {return agents;}
+
     public Property findByAddress(String address) {
         for (Property p : properties) {
             if (p.getaddress().equals(address)) {
@@ -41,6 +44,10 @@ public class RealEstateAgency {
             }
         }
         return maxPrice;
+    }
+
+    public void sortbyprice() {
+        properties.sort(Comparator.comparingInt(Property::getprice));
     }
 
     public void showAgents() {

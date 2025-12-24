@@ -3,13 +3,16 @@ public class Property {
     private String address;
     private int price;
     private double area;
+    private int floor;
+    private Agent agent;
 
     // below is constructor
-    public Property(String name, String address, int price, double area) {
+    public Property(String name, String address, int price, double area, int floor) {
         this.name = name;
         this.address = address;
         this.price = price;
         this.area = area;
+        this.floor = floor;
     }
 
     // getters
@@ -25,6 +28,7 @@ public class Property {
     public double getarea() {
         return this.area;
     }
+    public Agent getAgent() { return this.agent;}
     // setters
     public void setname(String name) {
         this.name = name;
@@ -38,6 +42,10 @@ public class Property {
     public void setarea(double area) {
         this.area = area;
     }
+    public void setagent(Agent agent) {
+        this.agent = agent;
+    }
+
     @Override
     public String toString() {
         return name + " is at "+ address + " costs "+ price + " and it's area "+ area;
