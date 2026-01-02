@@ -30,11 +30,19 @@ public class RealEstateAgency{
         }
     }
     public void showApartments() {
-        System.out.println("Apartments: ");
-        for (Apartment a : apartments) {
-            System.out.println(a.toString());
+        System.out.println("Apartments in " + name + ":");
+        boolean found = false;
+        for (Property p : properties) {
+            if (p instanceof Apartment) {
+                System.out.println(p.toString());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No apartments available");
         }
     }
+
 
     public ArrayList<Agent> getAgents() {return agents;}
 
