@@ -6,31 +6,19 @@ public class Main {
         int choice;
         System.out.print("Agency name: ");
         String name_agency = sc.nextLine();
-
-        System.out.println("Name: ");
-        String name = sc.nextLine();
-
-        System.out.print("Address: ");
-        String address = sc.nextLine();
-
-        System.out.print("Price: ");
-        int price = sc.nextInt();
-
-        System.out.println("Area: ");
-        double area = sc.nextDouble();
-
-        System.out.print("Floor: ");
-        int floor = sc.nextInt();
-        RealEstateAgency agency = new RealEstateAgency(name, address, price, area, floor, name_agency);
+        RealEstateAgency agency = new RealEstateAgency(name_agency);
 
 
         do {
             System.out.println("Choose the option");
             System.out.println("1. Show properties");
-            System.out.println("2. Add agents");
-            System.out.println("3. Search by address");
-            System.out.println("4. Filter by price");
-            System.out.println("5. Sort by price");
+            System.out.println("2. Add property");
+            System.out.println("3. Add apartment");
+            System.out.println("4. Add agents");
+            System.out.println("5. Show agents");
+            System.out.println("6. Search by address");
+            System.out.println("7. Filter by price");
+            System.out.println("8. Sort by price:");
             System.out.println("0. Exit");
 
             choice = sc.nextInt();
@@ -41,31 +29,61 @@ public class Main {
                     agency.showProperties();
                     break;
                 case 2:
-                    System.out.print("Name: ");
-                    String name_agent = sc.nextLine();
-
-                    System.out.print("Phone: ");
-                    String phone = sc.nextLine();
-
-                    System.out.print("Expreience: ");
-                    int experience = sc.nextInt();
-
-                    Agent a = new Agent(name_agent, phone, experience);
-                    agency.addAgency(a);
+                    System.out.print("Property name: ");
+                    String propName = sc.nextLine();
+                    System.out.print("Address: ");
+                    String propAddress = sc.nextLine();
+                    Property property = new Property(propName, propAddress);
+                    agency.addProperty(property);
                     break;
                 case 3:
-                    System.out.print("Enter address: ");
-                    String addresssearch = sc.nextLine();
-                    System.out.println(agency.findByAddress(addresssearch));
+                    System.out.print("Apartment name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Address: ");
+                    String address = sc.nextLine();
+                    System.out.print("Price: ");
+                    int price = sc.nextInt();
+                    System.out.print("Area: ");
+                    double area = sc.nextDouble();
+                    System.out.print("Floor: ");
+                    int floor = sc.nextInt();
+                    System.out.print("Rooms: ");
+                    int rooms = sc.nextInt();
+                    Apartment apartment = new Apartment(name, address, price, area, floor, rooms);
+                    agency.addProperty(apartment);
                     break;
                 case 4:
-                    System.out.println("Max price: ");
-                    int maxprice = sc.nextInt();
-                    agency.filterByPrice(maxprice);
+                    System.out.print("Agent name: ");
+                    String name_agent = sc.nextLine();
+                    System.out.print("Phone: ");
+                    String phone = sc.nextLine();
+                    System.out.print("Experience (years): ");
+                    int experience = sc.nextInt();
+                    Agent agent = new Agent(name_agent, phone, experience);
+                    agency.addAgent(agent);
                     break;
                 case 5:
+                    agency.showAgents();
+                    break;
+                case 6:
+                    System.out.print("Enter address: ");
+                    String searchAddress = sc.nextLine();
+                    Property found = agency.findByAddress(searchAddress);
+                    if (found != null) {
+                        System.out.println("Found: " + found.toString());
+                    } else {
+                        System.out.println("Property not found");
+                    }
+                    break;
+                case 7:
+                    System.out.print("Max price: ");
+                    int maxPrice = sc.nextInt();
+                    agency.filterByPrice(maxPrice);
+                    break;
+                case 8:
                     agency.sortbyprice();
-                    agency.showProperties();
+                    System.out.println("Apartments sorted by price!");
+                    agency.showApartments();
                     break;
             }
         } while (choice != 0);
