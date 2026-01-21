@@ -1,3 +1,8 @@
+package agency;
+
+import agency.models.Agent;
+import agency.models.Apartment;
+import agency.models.Property;
 import java.util.Scanner;
 
 public class Main {
@@ -33,7 +38,7 @@ public class Main {
                     String propName = sc.nextLine();
                     System.out.print("Address: ");
                     String propAddress = sc.nextLine();
-                    Property property = new Property(propName, propAddress);
+                    agency.models.Property property = new agency.models.Property(propName, propAddress);
                     agency.addProperty(property);
                     break;
                 case 3:
@@ -49,7 +54,7 @@ public class Main {
                     int floor = sc.nextInt();
                     System.out.print("Rooms: ");
                     int rooms = sc.nextInt();
-                    Apartment apartment = new Apartment(name, address, price, area, floor, rooms);
+                    agency.models.Apartment apartment = new agency.models.Apartment(name, address, price, area, floor, rooms);
                     agency.addProperty(apartment);
                     break;
                 case 4:
@@ -59,7 +64,7 @@ public class Main {
                     String phone = sc.nextLine();
                     System.out.print("Experience (years): ");
                     int experience = sc.nextInt();
-                    Agent agent = new Agent(name_agent, phone, experience);
+                    agency.models.Agent agent = new agency.models.Agent(name_agent, phone, experience);
                     agency.addAgent(agent);
                     break;
                 case 5:
@@ -68,7 +73,7 @@ public class Main {
                 case 6:
                     System.out.print("Enter address: ");
                     String searchAddress = sc.nextLine();
-                    Property found = agency.findByAddress(searchAddress);
+                    agency.models.Property found = agency.findByAddress(searchAddress);
                     if (found != null) {
                         System.out.println("Found: " + found.toString());
                     } else {

@@ -1,3 +1,4 @@
+package agency.models;
 public class Apartment extends Property{
     private int price;
     private int floor;

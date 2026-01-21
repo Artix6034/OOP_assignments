@@ -1,3 +1,4 @@
+package agency.models;
 public class Agent {
     private String name;
     private String phone;
