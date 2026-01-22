@@ -9,13 +9,14 @@ import java.util.List;
 public class AgentDAO {
 
 public void create(agency.models.Agent a) throws SQLException {
-    String sql = "INSERT INTO agent(name, phone, experience) VALUES (?, ?, ?)";
+    String sql = "INSERT INTO agent(name, phone, experience, status) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = PostgresDB.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setString(1, a.getname());
         ps.setString(2, a.getphone());
         ps.setInt(3, a.getexperience());
+        ps.setBoolean(4, a.getstatus());
         ps.executeUpdate();
     }
 }
@@ -31,8 +32,9 @@ public void create(agency.models.Agent a) throws SQLException {
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
                 int exp = rs.getInt("experience");
+                boolean status = rs.getBoolean("status");
 
-                agents.add(new Agent(name, phone, exp));
+                agents.add(new Agent(name, phone, exp, status));
 
             }
         }
@@ -56,6 +58,13 @@ public void create(agency.models.Agent a) throws SQLException {
             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
             return ps.executeUpdate() > 0;
+        }
+    }
+    public void addcollumn(String name_column, String type_data) throws SQLException {
+        String sql = "ALTER TABLE agent" + " ADD COLUMN " + name_column + " " + type_data;
+        try(Connection conn = PostgresDB.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.executeUpdate();
         }
     }
 }

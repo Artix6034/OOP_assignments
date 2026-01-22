@@ -3,12 +3,14 @@ public class Agent {
     private String name;
     private String phone;
     private int experience;
+    private boolean status;
 
     // constructor
-    public Agent (String name, String phone, int experience) {
+    public Agent (String name, String phone, int experience, boolean status) {
         this.name = name;
         this.phone = phone;
         this.experience = experience;
+        this.status = status;
     }
 
     // getters
@@ -21,6 +23,7 @@ public class Agent {
     public int getexperience() {
         return experience;
     }
+    public boolean getstatus(){return status;}
     // setters
     public void setname(String name) {
         this.name = name;
@@ -28,9 +31,8 @@ public class Agent {
     public void setphone(String phone) {
         this.phone = phone;
     }
-    public void setexperience(int experience) {
-        this.experience = experience;
-    }
+    public void setexperience(int experience) {this.experience = experience;}
+    public void setstatus(boolean status) {this.status = status;}
     @Override
     public String toString() {
         return name + "'s phone: " + phone + ", he has " + experience + " years of experience";

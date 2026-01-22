@@ -50,6 +50,7 @@ public class Main {
             System.out.println("Extra:");
             System.out.println("  9) Filter apartments by max price (READ)");
             System.out.println(" 10) Show apartments sorted by price (READ)");
+            System.out.println(" 11) Add new column to Agent");
             System.out.println("  0) Exit");
             System.out.print("Choice: ");
 
@@ -78,7 +79,11 @@ public class Main {
                         int exp = sc.nextInt();
                         sc.nextLine();
 
-                        agentDAO.create(new Agent(name, phone, exp));
+                        System.out.println("Status: ");
+                        boolean status = sc.nextBoolean();
+                        sc.nextLine();
+
+                        agentDAO.create(new Agent(name, phone, exp, status));
                         System.out.println("Agent added.");
                         break;
                     }
@@ -170,6 +175,13 @@ public class Main {
                     case 10:
                         printApartments(apartmentDAO.readAllSortedByPrice());
                         break;
+                    case 11:
+                        System.out.println("New column name: ");
+                        String name = sc.nextLine();
+                        System.out.println("type of data: ");
+                        String type = sc.next();
+                        agentDAO.addcollumn(name, type);
+                        System.out.println("Column added successfully");
 
                     case 0:
                         System.out.println("Bye.");
