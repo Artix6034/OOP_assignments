@@ -41,7 +41,7 @@ public class Main {
             System.out.println("  1) Show all agents (READ)");
             System.out.println("  2) Add agent (CREATE)");
             System.out.println("  3) Update agent experience (UPDATE)");
-            System.out.println("  4) Delete agent by phone (DELETE)");
+            System.out.println("  4) Delete agent by name (DELETE)");
             System.out.println("Apartments:");
             System.out.println("  5) Show all apartments (READ)");
             System.out.println("  6) Add apartment (CREATE)");
@@ -97,10 +97,10 @@ public class Main {
                     }
 
                     case 4: {
-                        System.out.print("Phone: ");
-                        String phone = sc.nextLine();
+                        System.out.print("Name: ");
+                        String name = sc.nextLine();
 
-                        boolean ok = agentDAO.deleteByPhone(phone);
+                        boolean ok = agentDAO.deleteByName(name);
                         System.out.println(ok ? "Agent deleted." : "Agent not found.");
                         break;
                     }

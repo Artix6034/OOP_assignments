@@ -42,10 +42,10 @@ public class RealEstateAgency {
         return agentDAO.updateExperience(phone, newExperience);
     }
 
-    public boolean deleteAgentByPhone(String phone) throws SQLException {
-        if (phone == null || phone.trim().isEmpty())
-            throw new IllegalArgumentException("Phone is required");
-        return agentDAO.deleteByPhone(phone);
+    public boolean deleteAgentByPhone(String name) throws SQLException {
+        if (name == null || name.trim().isEmpty())
+            throw new IllegalArgumentException("Name is required");
+        return agentDAO.deleteByName(name);
     }
 
     // ---------------- Apartments (CRUD) ----------------

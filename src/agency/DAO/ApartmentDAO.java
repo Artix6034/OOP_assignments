@@ -1,6 +1,8 @@
 package agency.DAO;
 import agency.models.Apartment;
 import agency.data.PostgresDB;
+
+import javax.management.openmbean.CompositeDataSupport;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +26,61 @@ public class ApartmentDAO {
 
     public List<agency.models.Apartment> readAll() throws SQLException {
         String sql = "SELECT name, address, price, floor, area, rooms FROM apartment";
-        return readList(sql, null);
+        List<agency.models.Apartment> apartments = new ArrayList<Apartment>();
+        try (Connection conn = PostgresDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                int price = rs.getInt("price");
+                double area = rs.getDouble("area");
+                int floor = rs.getInt("floor");
+                int rooms = rs.getInt("rooms");
+                apartments.add(new Apartment(name, address, price, area, floor, rooms));
+            }
+        }
+        return apartments;
     }
 
     public List<agency.models.Apartment> readAllSortedByPrice() throws SQLException {
         String sql = "SELECT name, address, price, floor, area, rooms FROM apartment ORDER BY price";
-        return readList(sql, null);
+        List<agency.models.Apartment> apartments = new ArrayList<Apartment>();
+        try (Connection conn = PostgresDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                int price = rs.getInt("price");
+                double area = rs.getDouble("area");
+                int floor = rs.getInt("floor");
+                int rooms = rs.getInt("rooms");
+                apartments.add(new Apartment(name, address, price, area, floor, rooms));
+            }
+        }
+        return apartments;
     }
 
     public List<agency.models.Apartment> filterByMaxPrice(int maxPrice) throws SQLException {
+        List<agency.models.Apartment> apartments = new ArrayList<>();
         String sql = "SELECT name, address, price, floor, area, rooms FROM apartment WHERE price <= ? ORDER BY price";
-        return readList(sql, ps -> ps.setInt(1, maxPrice));
+        try (Connection conn = PostgresDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, maxPrice);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    int price = rs.getInt("price");
+                    double area = rs.getDouble("area");
+                    int floor = rs.getInt("floor");
+                    int rooms = rs.getInt("rooms");
+                    apartments.add(new Apartment(name, address, price, area, floor, rooms));
+                }
+            }
+        }
+        return apartments;
     }
 
     public boolean updatePrice(String address, int newPrice) throws SQLException {
@@ -57,33 +103,6 @@ public class ApartmentDAO {
             return ps.executeUpdate() > 0;
         }
     }
-
-    // ---------- helper ----------
-    private interface Binder {
-        void bind(PreparedStatement ps) throws SQLException;
-    }
-
-    private List<agency.models.Apartment> readList(String sql, Binder binder) throws SQLException {
-        List<agency.models.Apartment> apartments = new ArrayList<>();
-        try (Connection conn = PostgresDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            if (binder != null) binder.bind(ps);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    apartments.add(new agency.models.Apartment(
-                            rs.getString("name"),
-                            rs.getString("address"),
-                            rs.getInt("price"),
-                            rs.getDouble("area"),
-                            rs.getInt("floor"),
-                            rs.getInt("rooms")
-                    ));
-                }
-            }
-        }
-        return apartments;
-    }
 }
+
 
