@@ -42,7 +42,7 @@ public class RealEstateAgency {
         return agentDAO.updateExperience(phone, newExperience);
     }
 
-    public boolean deleteAgentByPhone(String name) throws SQLException {
+    public boolean deleteAgentByName(String name) throws SQLException {
         if (name == null || name.trim().isEmpty())
             throw new IllegalArgumentException("Name is required");
         return agentDAO.deleteByName(name);

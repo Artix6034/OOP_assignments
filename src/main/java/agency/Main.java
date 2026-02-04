@@ -30,7 +30,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // DAOs from my code have instance methods => create objects
         AgentDAO agentDAO = new AgentDAO();
         ApartmentDAO apartmentDAO = new ApartmentDAO();
 
@@ -51,6 +50,7 @@ public class Main {
             System.out.println("  9) Filter apartments by max price (READ)");
             System.out.println(" 10) Show apartments sorted by price (READ)");
             System.out.println(" 11) Add new column to Agent");
+            System.out.println(" 12) Update city by agent name");
             System.out.println("  0) Exit");
             System.out.print("Choice: ");
 
@@ -63,7 +63,6 @@ public class Main {
 
             try {
                 switch (choice) {
-                    // -------- Agents --------
                     case 1:
                         printAgents(agentDAO.readAll());
                         break;
@@ -79,11 +78,18 @@ public class Main {
                         int exp = sc.nextInt();
                         sc.nextLine();
 
-                        System.out.println("Status: ");
+                        System.out.print("Status (true/false): ");
                         boolean status = sc.nextBoolean();
                         sc.nextLine();
 
-                        agentDAO.create(new Agent(name, phone, exp, status));
+                        System.out.print("feature1 (int): ");
+                        int feature1 = sc.nextInt();
+                        sc.nextLine();
+
+                        System.out.print("city: ");
+                        String city = sc.nextLine();
+
+                        agentDAO.create(new Agent(name, phone, exp, status, feature1, city));
                         System.out.println("Agent added.");
                         break;
                     }
@@ -110,7 +116,6 @@ public class Main {
                         break;
                     }
 
-                    // -------- Apartments --------
                     case 5:
                         printApartments(apartmentDAO.readAll());
                         break;
@@ -135,7 +140,6 @@ public class Main {
                         int rooms = sc.nextInt();
                         sc.nextLine();
 
-                        // IMPORTANT: this constructor order must match your Apartment class
                         apartmentDAO.create(new Apartment(name, address, price, area, floor, rooms));
                         System.out.println("Apartment added.");
                         break;
@@ -175,13 +179,31 @@ public class Main {
                     case 10:
                         printApartments(apartmentDAO.readAllSortedByPrice());
                         break;
-                    case 11:
-                        System.out.println("New column name: ");
-                        String name = sc.nextLine();
-                        System.out.println("type of data: ");
+
+                    case 11: {
+                        System.out.print("New column name: ");
+                        String colName = sc.nextLine();
+
+                        System.out.print("Type of data (TEXT/INT/BOOLEAN/DOUBLE): ");
                         String type = sc.next();
-                        agentDAO.addcollumn(name, type);
+                        sc.nextLine();
+
+                        agentDAO.addColumn(colName, type);
                         System.out.println("Column added successfully");
+                        break;
+                    }
+
+                    case 12: {
+                        System.out.print("New city name: ");
+                        String city = sc.nextLine();
+
+                        System.out.print("Name of agent: ");
+                        String agentName = sc.nextLine();
+
+                        boolean ok = agentDAO.updateCityByName(agentName, city);
+                        System.out.println(ok ? "Updated." : "Agent not found.");
+                        break;
+                    }
 
                     case 0:
                         System.out.println("Bye.");
