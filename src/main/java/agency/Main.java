@@ -1,5 +1,5 @@
 package agency;
-
+import agency.algorithms.Apartmentsorter;
 import agency.DAO.AgentDAO;
 import agency.DAO.ApartmentDAO;
 import agency.models.Agent;
@@ -51,6 +51,7 @@ public class Main {
             System.out.println(" 10) Show apartments sorted by price (READ)");
             System.out.println(" 11) Add new column to Agent");
             System.out.println(" 12) Update city by agent name");
+            System.out.println(" 13) Sort by price of apartments");
             System.out.println("  0) Exit");
             System.out.print("Choice: ");
 
@@ -202,6 +203,14 @@ public class Main {
 
                         boolean ok = agentDAO.updateCityByName(agentName, city);
                         System.out.println(ok ? "Updated." : "Agent not found.");
+                        break;
+                    }
+                    case 13: {
+                        System.out.println("Sorting...");
+                        List<Apartment> apts = apartmentDAO.readAll();
+                        List<Apartment> sorted;
+                        sorted = Apartmentsorter.bubbleSort(apts);
+                        printApartments(sorted);
                         break;
                     }
 
